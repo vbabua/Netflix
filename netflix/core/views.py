@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+# View function to display the index page.abs
+def index(request):
+    return render(request, 'index.html')

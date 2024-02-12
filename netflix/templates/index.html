@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Clone</title>
+    <!-- Tailwind CSS for styling -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/style.css' %}" />
+</head>
+
+<body class="text-white" style="background-color: #141414;"> 
+
+    <!-- Header Section -->
+    <header class="p-5 flex justify-between items-center">
+        <!-- Netflix Logo -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png" alt="Netflix Logo" class="h-8"> 
+        
+        <!-- Navigation -->
+        <nav class="flex space-x-5">
+            <span><a href="/">Home</a></span>
+        </nav>
+        
+        <!-- User Welcome Message -->
+        <div class="relative">
+            <a href="#" class="block p-2">Welcome, {{ user.username }}</a>
+        </div>
+    </header>
+
+    <!-- Popular on Netflix Section -->
+    <section class="py-10 px-5">
+        <h2 class="text-xl mb-5">Popular on Netflix</h2>
+        <div class="flex space-x-5 overflow-x-auto">
+            <!-- Dynamic content will be loaded here -->
+        </div>
+    </section>
+    
+</body>
+</html>
