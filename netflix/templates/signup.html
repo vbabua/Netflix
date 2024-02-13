@@ -1,0 +1,44 @@
+{% load static %} <!-- Load Django static files -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- Character encoding for the document -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Compatibility with IE browser -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design meta -->
+    <link rel="stylesheet" href="{% static 'assets/login.css' %}"> <!-- Link to external CSS file -->
+    <title>Signup</title> <!-- Document title -->
+</head>
+<body class="bg-image"> <!-- Background image class for body -->
+
+    <div class="signup-container"> <!-- Container for the signup form and related text -->
+        <h1>Signup</h1> <!-- Main heading -->
+        <h2>Unlimited movies, TV shows, and more.</h2> <!-- Subheading -->
+
+        {% if messages %} <!-- Check if there are messages to display -->
+        <div class="messages"> <!-- Container for messages -->
+            {% for message in messages %} <!-- Loop through each message -->
+            <h5 class="error-message">{{ message }}</h5> <!-- Display message -->
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form action="" method="POST" class="signup-form"> <!-- Signup form -->
+            {% csrf_token %} <!-- CSRF token for form security -->
+            <input type="email" name="email" placeholder="Email address"> <!-- Email input -->
+            <input type="text" name="username" placeholder="Username"> <!-- Username input -->
+            <input type="password" name="password" placeholder="Password"> <!-- Password input -->
+            <input type="password" name="password2" placeholder="Repeat Password"> <!-- Repeat password input -->
+            <button type="submit" class="signup-btn">Get Started &gt;</button> <!-- Submit button -->
+        </form>
+
+        <div class="help-text"> <!-- Help text for users -->
+            <span>Ready to watch? Enter your email to create or restart your membership.</span>
+            <br><br>
+            <span>Already have an account? <a href="{% url 'login' %}">Login</a></span> <!-- Link to login page -->
+        </div>
+    </div>
+
+</body>
+</html>
+
