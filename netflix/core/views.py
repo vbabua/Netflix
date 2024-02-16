@@ -50,6 +50,29 @@ def signup(request):
         # If the request method is not POST, simply render the signup page template
         return render(request, 'signup.html')
 
+# View function to display the login page and handle login functionality
 def login(request):
+    # Check if the current request is a POST request, which indicates form submission
+    if request.method == 'POST':
+        # Retrieve the username and password from the submitted form data
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        # Use Django's authentication system to verify the credentials
+        user = auth.authenticate(username=username, password=password)
+        
+        # If the authentication is successful and a user object is returned
+        if user is not None:
+            # Log the user in, which sets up the session for the user
+            auth.login(request, user)
+            # Redirect to the homepage (or any other page) after successful login
+            return redirect('/')
+        else:
+            # If authentication fails, inform the user that the credentials are invalid
+            messages.info(request, 'Credentials Invalid')
+            # Redirect back to the login page to allow the user to try again
+            return redirect('login')
     
+    # If the request method is not POST (e.g., GET), display the login page without any authentication attempt
+    # This handles the case where the user initially navigates to the login page
     return render(request, 'login.html')
