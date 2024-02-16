@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %} <!-- Loading Django static files -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,41 +6,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/login.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/login.css' %}"> <!-- Linking external CSS file -->
 
     <title>Login</title>
 </head>
-<body>
+<body class="bg-image"> <!-- Background image applied via CSS class -->
 
-    <div class="bg-image">
-        <div class="signup-container">
-            <h1>Login</h1>
-            <h2>Unlimited movies, TV shows, and more.</h2>
+    <div class="signup-container"> <!-- Container for the login content -->
+        <h1>Login</h1> <!-- Page title -->
+        <h2>Unlimited movies, TV shows, and more.</h2> <!-- Subtitle -->
 
-            <div>
-                <style>
-                    h5{
-                        color: red;
-                    }
-                </style>
-                {% for message in messages %}
-                <h5>{{message}}</h5>
-                {% endfor %}
-            </div>
+        <!-- Displaying messages (e.g., error or success messages) -->
+        {% if messages %}
+        <div class="message-container">
+            {% for message in messages %}
+            <h5 class="message">{{ message }}</h5>
+            {% endfor %}
+        </div>
+        {% endif %}
 
+        <!-- Login form -->
+        <form action="" method="POST" class="login-form">
+            {% csrf_token %} <!-- CSRF token for form security -->
+            <input type="text" name="username" placeholder="Username"> <!-- Username input -->
+            <input type="password" name="password" placeholder="Password"> <!-- Password input -->
+            <button type="submit" class="login-btn">Login</button> <!-- Login button -->
+        </form>
 
-            <form action="" method="POST">
-                {% csrf_token %}
-                <input type="text" name="username" placeholder="Username" />
-                <input type="password" name="password" placeholder="Password" />
-                <button style="color:white" type="submit" class="signup-btn">Login</button>
-            </form>
-            <div class="help-text" align="center">
-                <span>Ready to watch? Enter your email to create or restart your membership.</span>
-                <br>
-                <br>
-                <span>Dont have an account? <a href="signup.html">Signup</a></span>
-            </div>
+        <!-- Help text and link to signup page -->
+        <div class="help-text text-center"> <!-- Center-aligned text -->
+            <span>Ready to watch? Enter your email to create or restart your membership.</span>
+            <br><br>
+            <span>Dont have an account? <a href="{% url 'signup' %}">Signup</a></span> <!-- Link to signup page -->
         </div>
     </div>
 
