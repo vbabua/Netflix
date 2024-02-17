@@ -1,10 +1,19 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .models import Movie
 
-# View function to display the index page.abs
+# View function to display the index page
+@login_required(login_url = 'login')
 def index(request):
-    return render(request, 'index.html')
+    movies = Movie.objects.all()
+
+    context = {
+        'movies': movies,
+    }
+    # Rendering the index.html template for any request to the index view
+    return render(request, 'index.html', context)
 
 # View function to handle the signup process
 def signup(request):
@@ -76,3 +85,17 @@ def login(request):
     # If the request method is not POST (e.g., GET), display the login page without any authentication attempt
     # This handles the case where the user initially navigates to the login page
     return render(request, 'login.html')
+
+# View function to display details for a specific movie
+@login_required(login_url = 'login')
+def movie(request, pk):
+    # Retrieving the unique identifier for the movie from the URL
+    movie_uuid = pk
+    # Fetching the movie details from the database using the unique identifier
+    movie_details = Movie.objects.get(uu_id=movie_uuid)
+
+    context = {
+        'movie_details': movie_details
+    }
+    # Rendering the movie.html template, passing in the movie details
+    return render(request, 'movie.html', context)

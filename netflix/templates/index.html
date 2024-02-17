@@ -30,13 +30,91 @@
         </div>
     </header>
 
-    <!-- Popular on Netflix Section -->
+    <!-- Section displaying popular movies -->
     <section class="py-10 px-5">
-        <h2 class="text-xl mb-5">Popular on Netflix</h2>
+        <h2 class="text-xl mb-5">Popular on Netflix</h2> <!-- Section title -->
+        <!-- Container for movie cards -->
         <div class="flex space-x-5 overflow-x-auto">
-            <!-- Dynamic content will be loaded here -->
+            {% for movie in movies %} <!-- Loop through movies -->
+            <!-- Individual movie card with background image and movie details as data attributes -->
+            <div class="w-40 h-64 flex-shrink-0 film-card"
+                onclick="showModal(this)" 
+                data-title="{{ movie.title }}"
+                data-description="{{ movie.description }}"
+                data-release-date="{{ movie.release_date|date:'Y' }}"
+                data-genre="{{ movie.get_genre_display }}" 
+                data-length="{{ movie.length }}"
+                data-image-card-url="{{ movie.image_card.url }}"
+                data-image-cover-url="{{ movie.image_cover.url }}"
+                data-video-url="/movie/{{ movie.uu_id }}"
+                style="background-image: url('{{movie.image_card.url}}'); background-size: cover; background-position: center;">
+            </div>
+            {% endfor %}
         </div>
     </section>
+
+    <!-- Modal for displaying detailed movie information -->
+    <div class="modal" id="movieModal">
+        <div class="modal-content">
+            <!-- Modal header with dynamic movie title and close button -->
+            <div class="flex justify-between">
+                <h2 class="text-xl mb-5">Movie Title</h2> <!-- Placeholder for movie title -->
+                <button onclick="hideModal()">X</button> <!-- Close button -->
+            </div>
+            <!-- Modal body with movie image, year, length, and description -->
+            <img width="1000" height="100" src="" alt="Movie Image" class="mb-5">
+            <div class="flex justify-between mb-5">
+                <span>Year: </span> <!-- Placeholder for year -->
+                <span>Length: </span> <!-- Placeholder for movie length -->
+            </div>
+            <p class="mb-5">Detailed information about the movie.</p> <!-- Placeholder for movie description -->
+            <div class="flex space-x-4 mb-5">
+                <a href="movie.html">
+                    <button class="bg-red-600 text-white p-2 px-5 rounded hover:bg-red-500">Play</button> <!-- Play button -->
+                </a>
+                <button id="addToListButton" onclick="addItemToList()" class="border border-white text-white p-2 px-5 rounded hover:bg-gray-700">
+                    Add to List
+                </button> <!-- Add to list button -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show the modal with details for the selected movie
+        function showModal(element) {
+            // Retrieve and display movie details from data attributes
+            const modal = document.getElementById('movieModal');
+            modal.querySelector('.modal-content h2').textContent = element.getAttribute('data-title');
+            modal.querySelector('.modal-content img').src = element.getAttribute('data-image-cover-url');
+            modal.querySelector('.modal-content img').alt = element.getAttribute('data-title') + " Cover Image";
+            modal.querySelector('.modal-content .flex span:first-child').textContent = "Year: " + element.getAttribute('data-release-date');
+            modal.querySelector('.modal-content .flex span:nth-child(2)').textContent = "Genre: " + element.getAttribute('data-genre');
+            modal.querySelector('.modal-content .flex span:last-child').textContent = "Length: " + element.getAttribute('data-length') + "min";
+            modal.querySelector('.modal-content p').textContent = element.getAttribute('data-description');
+            modal.querySelector('.modal-content a').href = element.getAttribute('data-video-url');
+            modal.style.display = 'block';
+            setTimeout(() => { modal.classList.add('modal-show'); }, 50);
+        }
+        
+        // Hide the modal
+        function hideModal() {
+            const modal = document.querySelector('.modal');
+            modal.classList.remove('modal-show');
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
+        }
+
+        // Close the modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('movieModal')) {
+                hideModal();
+            }
+        }
+
+        // Placeholder function for adding a movie to the list
+        function addItemToList() {
+            // This function can be implemented to handle adding a movie to a user's watch list
+        }
+    </script>
     
 </body>
 </html>

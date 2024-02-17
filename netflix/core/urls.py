@@ -16,4 +16,8 @@ urlpatterns = [
     # Define a URL pattern for the 'login' path. 
     # When "/login" is accessed, Django will execute the views.login function.
     path('login', views.login, name='login'),
+
+    # Define a URL pattern for individual movie details.
+    # When "/movie/<str:pk>/" is accessed, Django will execute the views.movie function, passing the 'pk' as a parameter.
+    path('movie/<str:pk>/', views.movie, name='movie'),
 ]
