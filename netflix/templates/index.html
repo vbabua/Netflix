@@ -24,9 +24,13 @@
             <span><a href="/">Home</a></span>
         </nav>
         
-        <!-- User Welcome Message -->
-        <div class="relative">
-            <a href="#" class="block p-2">Welcome, {{ user.username }}</a>
+        <div class="flex space-x-5 items-center">
+            <div class="relative">
+                <!-- User Welcome Message -->
+                <a href="#" class="block p-2">Welcome, {{user.username}}</a>
+                <!--Logout-->
+                <a href="/logout" class="block p-2">Logout</a>
+            </div>
         </div>
     </header>
 

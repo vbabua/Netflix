@@ -99,3 +99,11 @@ def movie(request, pk):
     }
     # Rendering the movie.html template, passing in the movie details
     return render(request, 'movie.html', context)
+
+# View function to handle the logout
+@login_required(login_url = 'login')
+def logout(request):
+    # Log out the current user
+    auth.logout(request)
+    # Redirect to the login page after successfully logging out
+    return redirect('login')
