@@ -24,4 +24,8 @@ urlpatterns = [
     # Define a URL pattern for the 'logout' path.
     # When "/logout" is accessed, Django will execute the views.logout function, allowing users to log out.
     path('logout', views.logout, name='logout'),
+
+    # Define a URL pattern for adding a movie to the user's list.
+    # When "/add-to-list" is accessed, Django will execute the views.add_to_list function, allowing users to add a movie to their list.
+    path('add-to-list', views.add_to_list, name='add-to-list'),
 ]

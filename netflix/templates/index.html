@@ -10,6 +10,9 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Custom styles -->
     <link rel="stylesheet" type="text/css" href="{% static 'assets/style.css' %}" />
+    <!-- Load jQuery library from Google CDN for easy DOM manipulation and AJAX -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 
 <body class="text-white" style="background-color: #141414;"> 
@@ -114,10 +117,30 @@
             }
         }
 
-        // Placeholder function for adding a movie to the list
+        // Function to handle adding a movie to the user's list
         function addItemToList() {
-            // This function can be implemented to handle adding a movie to a user's watch list
+            const modal = document.getElementById('movieModal');
+            var movieID = modal.querySelector('.modal-content a').href;
+
+            // AJAX POST request to add the movie to the list
+            $.ajax({
+                url: "{% url 'add-to-list' %}",
+                type: "POST",
+                data: {
+                    movie_id: movieID,
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                success: function(data) {
+                    // On success, disable the 'Add to List' button and update its text
+                    $('#addToListButton').text(data.message).prop('disabled', true);
+                },
+                error: function(xhr, errmsg, err) {
+                    // Log any errors to the console
+                    console.error("Error adding item to list: " + errmsg);
+                }
+            });
         }
+
     </script>
     
 </body>
