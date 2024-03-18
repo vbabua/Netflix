@@ -132,3 +132,21 @@ def add_to_list(request):
         # return error
         return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
 
+# View function for displaying a user's movie list
+@login_required(login_url='login')
+def my_list(request):
+    # Querying the MovieList model to get all movie list entries for the current user
+    movie_list = MovieList.objects.filter(owner_user=request.user)
+    user_movie_list = []
+
+    # Iterating over the queryset to extract each movie object and add it to the user_movie_list
+    for movie in movie_list:
+        user_movie_list.append(movie.movie)
+
+    # Preparing the context with the user's movie list to be passed to the template
+    context = {
+        'movies': user_movie_list
+    }
+    # Rendering the my_list.html template, passing in the context containing the user's movie list
+    return render(request, 'my_list.html', context)
+

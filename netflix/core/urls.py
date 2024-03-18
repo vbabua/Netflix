@@ -28,4 +28,8 @@ urlpatterns = [
     # Define a URL pattern for adding a movie to the user's list.
     # When "/add-to-list" is accessed, Django will execute the views.add_to_list function, allowing users to add a movie to their list.
     path('add-to-list', views.add_to_list, name='add-to-list'),
+
+    # Define a URL pattern for accessing a user's personal list of movies.
+    # When "/my-list" is accessed, Django will execute the views.my_list function, displaying the user's list of movies.
+    path('my-list', views.my_list, name='my-list'),
 ]
