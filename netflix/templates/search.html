@@ -26,9 +26,8 @@
         <nav class="flex space-x-5">
             <span><a href="/">Home</a></span>
 
-            <span><a href="/my-list">My List</a></span>
+            <span><a href="/my-list">Search Result</a></span>
         </nav>
-        
         <div class="flex space-x-5 items-center">
             <form action="search" method="POST">
                 {% csrf_token %}
@@ -47,11 +46,15 @@
 
     <!-- Section displaying popular movies -->
     <section class="py-10 px-5">
-        <h2 class="text-xl mb-5">Popular on Netflix</h2> <!-- Section title -->
-        <!-- Container for movie cards -->
+    
+        <div align="center">
+            <h2 class="text-xl mb-5">
+                My List
+            </h2>
+        </div>
         <div class="flex space-x-5 overflow-x-auto">
-            {% for movie in movies %} <!-- Loop through movies -->
-            <!-- Individual movie card with background image and movie details as data attributes -->
+
+            {% for movie in movies reversed %}
             <div class="w-40 h-64 flex-shrink-0 film-card"
                 onclick="showModal(this)" 
                 data-title="{{ movie.title }}"
@@ -65,7 +68,6 @@
                 style="background-image: url('{{movie.image_card.url}}'); background-size: cover; background-position: center;">
             </div>
             {% endfor %}
-        </div>
     </section>
 
     <!-- Modal for displaying detailed movie information -->

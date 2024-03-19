@@ -32,4 +32,8 @@ urlpatterns = [
     # Define a URL pattern for accessing a user's personal list of movies.
     # When "/my-list" is accessed, Django will execute the views.my_list function, displaying the user's list of movies.
     path('my-list', views.my_list, name='my-list'),
+
+    # Define a URL pattern for the search functionality.
+    # When "/search" is accessed, Django will execute the views.search function, allowing users to search for movies.
+    path('search', views.search, name='search'),
 ]
